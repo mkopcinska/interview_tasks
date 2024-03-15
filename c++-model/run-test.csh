@@ -1,0 +1,1 @@
+make DBG_TST=1 clean all run-quadraTb | egrep y_err | cut -d'=' -f2 > err.dat
