@@ -15,9 +15,9 @@ module quadra_top
 	 // Define signals 
 	 x2_t x2;
 	 sq_t sq;
-    a_t a;
-    b_t b;
-    c_t c;
+     a_t a;
+     b_t b;
+     c_t c;
 	 
 	 // Divide x into x1 and x2 based on x_dv condition
     logic [23:17] x1;

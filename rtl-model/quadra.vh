@@ -29,6 +29,17 @@ typedef logic signed [Y_W-1:0] y_t;
 // Internal precision:
 // --------------------------------------------------------------------------------
 
-// <challenge!>
+// Define precision for multiplier_carry_save module
+localparam int P_I = 1;           // Integer bits
+localparam int P_F = 23;          // Fractional bits
+localparam int P_W = P_I + P_F;   // Total width
+
+// Define types for quadra module
+//typedef logic [P_W-1:0] a_t;  // Type for 'a' input
+//typedef logic [P_W-1:0] b_t;  // Type for 'b' input
+//typedef logic [P_W-1:0] c_t;  // Type for 'c' input
+//typedef logic [P_W-1:0] x2_t; // Type for 'x2' input
+//typedef logic [P_W-1:0] sq_t; // Type for 'sq' input
+//typedef logic [P_W-1:0] y_t;  // Type for 'y' output
 
 `endif

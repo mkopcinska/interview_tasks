@@ -4,8 +4,9 @@
 
 `include "quadra.vh"
 
-module quadra
-(
+module quadra (
+    input ck_t clk,
+    input rs_t rst,
     input  sq_t sq,
     input  x2_t x2,
     input  a_t  a,
@@ -13,19 +14,31 @@ module quadra
     input  c_t  c,
     output y_t  y
 );
+    logic [P_W-1:0] b_mult_x2;
+    logic [P_W-1:0] a_mult_sq;
 
-    // Local signals for intermediate calculations
-    logic [Y_W-1:0] a_sq_mult;
-    logic [Y_W-1:0] b_x2_mult;
+    // a and sq multiplicatoin
+    multiplier_carry_save mult_a_sq (
+        .a(a),  
+        .b(sq),
+        .sum(a_mult_sq),
+        .carry()
+    );
 
-    // Calculate a * sq 
-	 // These are not multipliers in carry-save form
-    assign a_sq_mult = a * sq;
+    // b and x2 multiplicatoin
+    multiplier_carry_save mult_b_x2 (
+        .a(b),  
+        .b(x2),
+        .sum(b_mult_x2),
+        .carry()
+    );
 
-    // Calculate b * x2
-    assign b_x2_mult = b * x2;
+	// Synchronous addition and output assignment
+    always_ff @(posedge clk) begin
+        y_temp <= a_mult_sq + b_mult_x2 + c;
+    end
 
-    // Calculate y = a * sq + b * x2 + c
-    assign y = a_sq_mult + b_x2_mult + c;
+    assign y = y_temp;
 
 endmodule
+
